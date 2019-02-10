@@ -166,9 +166,19 @@ var wordsCount = [
   'matter'
 ];
 
-function howManyTimes (wordsCount, x) {
+function howManyTimes(wordsCount, x) {
   var times = 0;
-  
+
+  if (wordsCount.length === 0) { // Array vacío
+    times = false;
+  }
+  else {
+    for (var i = 0; i < wordsCount.length; i++) {
+      if (x === wordsCount[i]) {
+        times++;
+      }
+    }
+  }
   return times;
 }
 
@@ -197,8 +207,27 @@ var matrix = [
   [1, 70, 54, 71, 83, 51, 54, 69, 16, 92, 33, 48, 61, 43, 52, 1, 89, 19, 67, 48]
 ];
 
-function greatestProduct(matrix){
-  var greatProd = 0;
+function greatestProduct(matrix) {
+  var aux = 0;
+  var max = 0;
 
-  return greatProd;
+  for (var i = 0; i < matrix.length; i++) {
+    for (var j = 0; j < matrix[i].length; j++) {
+      if (i == 0 && j == 0) { aux = matrix[i][j + 1] * matrix[i + 1][j] }
+      else if (i == 0 && j == matrix[i].length - 1) { aux = matrix[i][j - 1] * matrix[i + 1][j] }
+      else if (i == matrix.length - 1 && j == 0) { aux = matrix[i][j + 1] * matrix[i - 1][j] }
+      else if (i == matrix.length - 1 && j == matrix[i].length - 1) { aux = matrix[i - 1][j] * matrix[i][j - 1] }
+      else if (i == 0) { aux = matrix[i][j - 1] * matrix[i + 1][j] * matrix[i][j + 1] }
+      else if (j == 0) { aux = matrix[i - 1][j] * matrix[i][j + 1] * matrix[i + 1][j] }
+      else if (i == matrix.length - 1) { aux = matrix[i - 1][j] * matrix[i][j + 1] * matrix[i][j - 1] }
+      else if (j == matrix[i].length - 1) { aux = matrix[i - 1][j] * matrix[i + 1][j] * matrix[i][j - 1] }
+      else { aux = matrix[i - 1][j] * matrix[i][j + 1] * matrix[i + 1][j] * matrix[i][j - 1] }
+
+      console.log('Adyacente de: (' + i + ', ' + j + '): ' + aux);
+
+      if (aux > max) { max = aux; }
+    }
+  }
+
+  return max;
 }
